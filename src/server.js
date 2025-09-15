@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import http from "http";                // 👈 needed for socket.io
-import { Server } from "socket.io";     // 👈 import socket.io
+import http from "http";           
+import { Server } from "socket.io";    
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
