@@ -1,24 +1,32 @@
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
-    sender:{
+    sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    receiver:{
+    receiver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    content:{
+    content: {
         type: String,
         required: true
     },
-    createdAt:{
+    deliveredAt: {
+        type: Date,   
+        default: null
+    },
+    readAt: {
+        type: Date,   
+        default: null
+    },
+    createdAt: {
         type: Date,
         default: Date.now
     }
-});
+},{timestamps: true});
 
-export default mongoose.model('Message', messageSchema);
+export default mongoose.model("Message", messageSchema);
