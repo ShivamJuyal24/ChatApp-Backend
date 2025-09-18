@@ -6,7 +6,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import { setupChatSocket } from "./sockets/chat.js";
-
+import groupRoutes from "./routes/group.routes.js"
 dotenv.config();
 
 const app = express();
@@ -29,6 +29,7 @@ setupChatSocket(io);
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/groups", groupRoutes);
 
 const PORT = process.env.PORT || 3000;
 

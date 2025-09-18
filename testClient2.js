@@ -1,27 +1,24 @@
 // testClient2.js
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
-
-// Replace with real MongoDB ObjectIds from your User collection
-const senderId = "68c3cfa3505f29e9a826fc36";   // user2
-const receiverId = "68c6deb14224e31f5bcc903c"; // user1
-
-socket.on("connect", () => {
-  console.log("Connected as", socket.id);
-
-  socket.emit("joinRoom", "room1");
-
-  // Send a message
-  socket.emit("sendMessage", {
-    room: "room1",
-    sender: senderId,
-    receiver: receiverId,
-    content: "Hello from Client 2",
-  });
+// Use your real JWT for user2 here
+const socket = io("http://localhost:3000", {
+  auth: { token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzNjZmEzNTA1ZjI5ZTlhODI2ZmMzNiIsImlhdCI6MTc1ODA0NjEyNiwiZXhwIjoxNzU4NjUwOTI2fQ.dcQZE8hRKNH_Lg4tnRWx9U5TW-pSSWOGMucrue-y8N4" },
 });
 
-// Listen for messages
+// Replace with real MongoDB ObjectIds
+const otherUserId = "68c6deb14224e31f5bcc903c"; // user1
+
+socket.on("connect", () => {
+  console.log("Client2 Connected as", socket.id);
+
+  // Join private room with user1
+  socket.emit("joinRoom", { otherUserId });
+});
+
 socket.on("receiveMessage", (data) => {
-  console.log("Received:", data);
+  console.log("Client2 received:", data);
+
+  // Mark the message as read
+  socket.emit("markAsRead", { messageId: data._id });
 });
